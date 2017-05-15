@@ -45,6 +45,7 @@ export default {
                 let topic = win.document.getElementById("topic")
                 if (topic) {
                     topic.innerHTML = curVal
+                    window.localStorage.draft = curVal
                 }
             }, 1000);
         },

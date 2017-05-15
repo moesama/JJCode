@@ -27,7 +27,7 @@ export default {
 
     editor.session.on('change', (e) => {
       // 通过 input 事件发出数值
-      self.$emit('input', editor.session.getValue())
+      self.$emit('input', editor.session.doc.getValue())
     })
 
     editor.commands.addCommand({
@@ -39,7 +39,7 @@ export default {
     })
 
     if (window.localStorage.draft) {
-      this.doc = window.localStorage.draft
+      editor.session.setValue(window.localStorage.draft)
     }
   },
   methods: {
@@ -51,23 +51,14 @@ export default {
           "unformatted": []
         }
       })
-      this.doc = result
-    }
-  },
-  computed: {
-    doc: {
-      get() {
-        return editor.session.getValue()
-      },
-      set(newValue) {
-        editor.session.doc.setValue(newValue)
-        window.localStorage.draft = newValue
-      }
+      editor.session.doc.setValue(result)
     }
   },
   watch: {
     value(val) {
-      this.doc = val
+      if (editor.session.doc.getValue() != val) {
+        editor.session.doc.setValue(val)
+      }
     },
     "$store.state.theme": (curVal, oldVal) => {
       window.localStorage.theme = curVal
