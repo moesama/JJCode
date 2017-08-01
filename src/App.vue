@@ -37,6 +37,9 @@
     </el-dialog>
   
     <el-dialog title="格式输出" :visible.sync="dialogOutputVisible">
+      <el-input placeholder="请输入防抄标签" v-model="outputTag">
+        <el-button slot="append" @click="produceOutput">重新生成防抄贴</el-button>
+      </el-input>
       <div id="output" class="output">{{output}}</div>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="copyOutput">全选</el-button>
@@ -48,18 +51,26 @@
       <div class="toolbar">
         <el-button size="small" icon="information" v-popover:popover_shortcut>
         </el-button>
-        <el-button size="small" @click="showOutputDialog">
-          <i class="fa fa-align-justify" aria-hidden="true"></i>
-        </el-button>
-        <el-button size="small" @click="showBaDialog">
-          扒
-        </el-button>
-        <el-button size="small" @click="download">
-          <i class="fa fa-download" aria-hidden="true"></i>
-        </el-button>
-        <el-button v-popover:popover_config size="small">
-          <i class="fa fa-cog" aria-hidden="true"></i>
-        </el-button>
+        <el-tooltip class="item" effect="dark" content="输出格式化代码" placement="left">
+          <el-button size="small" @click="showOutputDialog">
+            <i class="fa fa-align-justify" aria-hidden="true"></i>
+          </el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="一键扒帖" placement="left">
+          <el-button size="small" @click="showBaDialog">
+            扒
+          </el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="下载" placement="left">
+          <el-button size="small" @click="download">
+            <i class="fa fa-download" aria-hidden="true"></i>
+          </el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="设置" placement="left">
+          <el-button v-popover:popover_config size="small">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+          </el-button>
+        </el-tooltip>
       </div>
     </div>
     <jj id="preview" class="split split-horizontal"></jj>
@@ -85,6 +96,7 @@ export default {
       dialogOutputVisible: false,
       topicCopy: "",
       output: "",
+      outputTag: "",
       shortcutData: [{
         command: "格式化代码",
         shortcut: "Ctrl + Alt + F"
@@ -258,11 +270,25 @@ export default {
       this.topicCopy = ""
     },
     showOutputDialog() {
-      this.output = Rules.format(this.$store.state.content)
+      this.produceOutput()
       this.dialogOutputVisible = true
     },
     hideOutputDialog() {
       this.dialogOutputVisible = false
+    },
+    produceOutput() {
+      if (this.outputTag && this.outputTag != "") {
+        let self = this
+        let $c = $("<div>").append(this.$store.state.content)
+        $c.find("*").each((index, element) => {
+          if (Math.random() < 0.3) {
+            $(element).addClass(self.outputTag + "_" + index)
+          }
+        })
+        this.output = Rules.format($c[0].innerHTML)
+      } else {
+        this.output = Rules.format(this.$store.state.content)
+      }
     },
     copyOutput() {
       let text = document.getElementById('output')
@@ -330,6 +356,7 @@ body {
 }
 
 .output {
+  margin-top: 10px;
   height: 400px;
   overflow-y: auto;
   font-family: simsun;
