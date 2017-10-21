@@ -3,7 +3,8 @@ export default {
         "\\n": "",
         "\\s+": " ",
         "width": "WIDTH",
-        "height": "HEIGHT"
+        "height": "HEIGHT",
+        "style": "STYLE"
     },
     format(value) {
         for (var reg in this.rules) {
