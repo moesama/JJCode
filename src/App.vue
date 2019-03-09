@@ -69,12 +69,14 @@
                             </el-select>
                         </el-form-item>
                     </el-form>
-                    <el-tooltip class="item" effect="dark" content="设置" placement="left">
-                        <el-button slot="reference" size="small">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </el-button>
-                    </el-tooltip>
                 </el-popover>
+
+
+                <el-tooltip class="item" effect="dark" content="设置" placement="left">
+                    <el-button v-popover:popover_config size="small">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                    </el-button>
+                </el-tooltip>
             </div>
         </div>
         <JJ id="preview" class="split split-horizontal"></JJ>
