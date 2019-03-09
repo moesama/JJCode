@@ -1,0 +1,14 @@
+[
+  {
+    "command": "格式化代码",
+    "shortcut": "Ctrl + Alt + F"
+  },
+  {
+    "command": "撤销",
+    "shortcut": "Ctrl + Z"
+  },
+  {
+    "command": "重做",
+    "shortcut": "Ctrl + Y"
+  }
+]

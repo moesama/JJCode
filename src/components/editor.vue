@@ -1,71 +1,76 @@
 <template>
-  <div id="editor">
-    {{value}}</div>
+    <div id="editor">
+        {{value}}
+    </div>
 </template>
 
-<script>
-import beautify from 'js-beautify'
+<script lang="ts">
+    import beautify from 'js-beautify'
+    import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 
-let editor = null;
-export default {
-  name: 'Editor',
-  props: ['value'],
-  mounted() {
-    let self = this
-    editor = ace.edit("editor")
-    editor.session.setMode("ace/mode/html")
+    declare var ace: any
 
-    if (window.localStorage.theme) {
-      this.$store.state.theme = window.localStorage.theme
-    }
+    @Component
+    export default class Editor extends Vue {
+        @Prop() private value: string = ""
 
-    editor.setOptions({
-      enableBasicAutocompletion: true,
-      enableSnippets: true,
-      enableLiveAutocompletion: true
-    })
+        private editor: any
 
-    editor.session.on('change', (e) => {
-      // 通过 input 事件发出数值
-      self.$emit('input', editor.session.doc.getValue())
-    })
+        private mounted() {
+            const self = this
+            this.editor = ace.edit("editor")
+            this.editor.session.setMode("ace/mode/html")
 
-    editor.commands.addCommand({
-      name: 'format',
-      bindKey: { win: 'Ctrl-Alt-F', mac: 'Command-Option-F' },
-      exec: function (editor) {
-        self.beautify()
-      }
-    })
+            if (window.localStorage.theme) {
+                this.$store.state.theme = window.localStorage.theme
+            }
 
-    if (window.localStorage.draft) {
-      editor.session.setValue(window.localStorage.draft)
-    }
-  },
-  methods: {
-    beautify() {
-      let result = beautify.html_beautify(editor.session.getValue(), {
-        "indent_size": 4,
-        "html": {
-          "end_with_newline": true,
-          "unformatted": []
+            this.editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true,
+            })
+
+            this.editor.session.on('change', () => {
+                // 通过 input 事件发出数值
+                self.$emit('input', self.editor.session.doc.getValue())
+            })
+
+            this.editor.commands.addCommand({
+                name: 'format',
+                bindKey: {win: 'Ctrl-Alt-F', mac: 'Command-Option-F'},
+                exec() {
+                    self.beautify()
+                },
+            })
+
+            if (window.localStorage.draft) {
+                this.editor.session.setValue(window.localStorage.draft)
+            }
         }
-      })
-      editor.session.doc.setValue(result)
+
+        private beautify() {
+            const result = beautify.html_beautify(this.editor.session.getValue(), {
+                indent_size: 4,
+                end_with_newline: true,
+                unformatted: [],
+            })
+            this.editor.session.doc.setValue(result)
+        }
+
+        @Watch("value")
+        private onValueChanged(val: any) {
+            if (this.editor.session.doc.getValue() != val) {
+                this.editor.session.doc.setValue(val)
+            }
+        }
+
+        @Watch("$store.state.theme")
+        private onThemeChanged(curVal: any, oldVal: any) {
+            window.localStorage.theme = curVal
+            this.editor.setTheme(curVal)
+        }
     }
-  },
-  watch: {
-    value(val) {
-      if (editor.session.doc.getValue() != val) {
-        editor.session.doc.setValue(val)
-      }
-    },
-    "$store.state.theme": (curVal, oldVal) => {
-      window.localStorage.theme = curVal
-      editor.setTheme(curVal)
-    }
-  }
-}
 </script>
 
 
