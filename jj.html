@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <style type="text/css">
+        <!-- a:link {
+            color: #0000FF;
+            text-decoration: none;
+        }
+        
+        a:visited {
+            color: #0000FF;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: #FF0000;
+            text-decoration: none;
+        }
+        
+        .read {
+            line-height: 30px;
+        }
+        
+        -->#addfavorite,
+        #delfavorite {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if (localStorage.draft) {
+                $('#topic').html(localStorage.draft);
+            }
+            initImage();
+        });
+
+        function initImage() {
+            var _w = 1024; //获取浏览器的宽度
+            var _h = 1024;
+            $("img").on('load', function() {
+                var img = $(this);
+                var realWidth = this.width; //真实的宽度
+                var realHeight = this.height; //真实的高度
+                if (realWidth > _w || realHeight > _h) {
+                    //如果长和宽有一个超过1024，则进行缩放处理
+                    if (realWidth > realHeight) {
+                        //如果长大于宽，我们就将长缩到1024，然后等比缩短高（按照 长/1024 这个比例来）
+                        var widthNow = _h;
+                        var heightNow = realHeight * (_w / realWidth);
+                        img.css({
+                            width: widthNow,
+                            height: heightNow
+                        });
+                    } else {
+                        //如果长小于或者等于宽，反过来
+                        var heightNow = _h;
+                        var widthNow = realWidth * (_h / realHeight);
+                        img.css({
+                            width: widthNow,
+                            height: heightNow
+                        });
+                    }
+                }
+            }).on('click', function() {
+                //因为上传的图片显示的时候不是完整的地址而是相对的地址，例如src="/upload/201505/15/15-674ece5.jpg"
+                //这样的话我们会判断其src里面是否包含了“http://”或者是“https://”，如果不包含的话，我们将其地址补全
+                //其实在测试中我发现不用补充前面的"http://bbs.jjwxc.net"，也能正常显示。。。。。原理不清楚。。。还是先保留此判断吧。
+                if (($(this).attr("src").indexOf('http://') != -1) || ($(this).attr("src").indexOf('https://') != -1)) {
+                    window.open($(this).attr("src"));
+                } else {
+                    window.open("http://bbs.jjwxc.net/" + $(this).attr("src"));
+                }
+            });
+        }
+    </script>
+</head>
+<title>
+    呵呵呵呵呵呵呵 —— 晋江文学城网友交流区
+</title>
+
+
+<body bgcolor="#FFE7F7" topmargin="0">
+    <center>
+        <div style='width:728px; height:90px; overflow:hidden;' id="dingbuFix">
+        </div>
+    </center>
+    <style type="text/css">
+        <!-- .graypic {
+            filter: Gray;
+        }
+        /* 初始化CSS */
+        
+        html,
+        body,
+        ul,
+        li,
+        ol,
+        dl,
+        dd,
+        dt,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        form,
+        fieldset,
+        legend,
+        img,
+        p,
+        div {
+            margin: 0;
+            padding: 0;
+        }
+        
+        fieldset,
+        img {
+            border: none;
+        }
+        
+        address,
+        caption,
+        cite,
+        code,
+        dfn,
+        th,
+        var {
+            font-style: normal;
+            font-weight: normal;
+        }
+        
+        ul,
+        ol {
+            list-style: none;
+        }
+    </style>
+    <table id='boardname' width="760" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="760">
+                <div style="width:300px;float: left">
+                    <a href='#'>小粉红装修队</a>→<a href='#'>JJCode</a>→<a href='#'>逆天的编辑器</a> </div>
+                <div id="loginStatus" style="width:250px;float: right"></div>
+            </td>
+        </tr>
+    </table>
+    <table width="760" border="0" align="center" cellspacing="0" style="table-layout:fixed;word-wrap:break-word;">
+        <tr>
+            <td bgcolor="#E8F3FF">
+                <div id="msgsubject" style="float: left;">
+                    Yoooooooooooooooooooooo
+                    <font color="#999999" size="-1">[1]</font>
+                </div>
+                <div style="float: right;"><span style=" font-weight: bold; font-size:14px; color: blue; cursor: pointer;" id="addfavorite" onclick="addfavorite(44, 16515)">收藏该贴</span></div>
+                <div style="float: right;"><span style=" font-weight: bold; font-size:14px; color: blue; cursor: pointer;" id="delfavorite" onclick="delfavorite(44, 16515)">已收藏</span></div>
+            </td>
+        </tr>
+        <tr class="comment_16515">
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td valign="bottom" width="350">
+                            <div class="image1" style="display: inline-block;">
+
+                            </div>&nbsp;&nbsp;
+                            <!--如果是登陆状态并且有审核权限 就显示去审核的链接-->
+                        </td>
+                        <td class="textbook">
+                            <a name='p0'></a>
+                            <div align="right">
+                                <img class="heartimg" src="http://bbs.jjwxc.net/img/heart.gif" width="10" height="9">
+                                <a href="#" target="_blank">
+                                    <font color=#0d7328 size="-1">呵呵呵呵呵呵呵</font>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="comment_16515">
+            <td>
+                <table width="760" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;word-wrap:break-word;">
+                    <tr>
+                        <td class="read">
+                            <div id="topic">
+                                yo
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="comment_16515">
+            <td class="authorname">
+                <div align="left">
+                    <font color=99CC00 size="-1">№0&nbsp;</font>
+                    <font color=99CC00>☆☆☆</font>装修队老大</b>
+                    <font color="99CC00">于</font>xxxx-xx-xx xx:xx:xx留言
+                    <font color=99CC00>☆☆☆　</font>
+                </div>
+            </td>
+        </tr>
+        <tr class="comment_16515">
+            <td height="1">
+                <div align="right">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div align="center">
+        <hr width="760" color="#99CC00" size="1">
+    </div>
+    <table width="760" align="center" cellspacing="0">
+        <tr class="reply_212431">
+            <td colspan="2">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="350">
+                            <div class="image1" style="display: inline-block;"></div>&nbsp;&nbsp;
+                            <!--如果是登陆状态并且有审核权限 就显示去审核的链接-->
+                            <a name="212431"></a>
+                        </td>
+                        <td class="textbook">
+                            <div align="right">
+                                <img class="heartimg" src="http://bbs.jjwxc.net/img/heart.gif" width="10" height="9">
+                                <a href="#" target="_blank">
+                                    <font color=#0d7328 style="font-size:12px">呵呵呵呵呵呵</font>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="reply_212431" id="2017-05-13 22:25:18">
+            <td colspan="2">
+                <table width="760" border="0" cellpadding="0" cellspacing="0" style="table-layout:fixed;word-wrap:break-word;">
+                    <tr>
+                        <td class="read">
+                            <div>你看到了一个假的回复！</div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="reply_212431">
+            <td class="authorname">
+                <font color=99CC00 size="-1">№1</font>&nbsp;
+                <font color=99CC00>☆☆☆</font>不存在的</b>
+                <font color="99CC00">于</font>xxxx-xx-xx xx:xx:xx留言
+                <font color=99CC00>☆☆☆　</font>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr class="reply_212431">
+            <td colspan="2">
+                <div align="center">
+                    <hr width=100% color=#99CC00 size=1>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="pager_bottom" align="center" style="padding:10px"></div>
+
+    <center>
+        <div style='width:728px; height:90px; overflow: hidden;' id="htAboveFix">
+        </div>
+    </center>
+    <p class='formhead' style="margin-top:10px" align=center>回复此贴子</p>
+    <form action='reply.php?board=44&id=16515' method='post' enctype="multipart/form-data" name="form1">
+        <input type="hidden" name="last_floor" value="1,0" />
+        <style type="text/css">
+            .image1,
+            .image2,
+            .image6,
+            .image7,
+            .image8,
+            .image9,
+            .image10,
+            .image12,
+            .image13,
+            .image14,
+            .image15,
+            .image16 {
+                background: url(http://bbs.jjwxc.net/notebook/bbsbigimage.jpg) no-repeat 0 0;
+            }
+            
+            .image1 {
+                width: 46px;
+                height: 46px;
+                background-position: 0 0;
+            }
+            
+            .image2 {
+                width: 46px;
+                height: 46px;
+                background-position: -46px 0;
+            }
+            
+            .image6 {
+                width: 46px;
+                height: 46px;
+                background-position: -96px 0;
+            }
+            
+            .image12 {
+                width: 46px;
+                height: 46px;
+                background-position: -144px 0;
+            }
+            
+            .image16 {
+                width: 46px;
+                height: 46px;
+                background-position: 0 -46px;
+            }
+            
+            .image14 {
+                width: 46px;
+                height: 46px;
+                background-position: -47px -46px;
+            }
+            
+            .image8 {
+                width: 46px;
+                height: 46px;
+                background-position: -96px -46px;
+            }
+            
+            .image7 {
+                width: 46px;
+                height: 46px;
+                background-position: -143px -46px;
+            }
+            
+            .image13 {
+                width: 46px;
+                height: 46px;
+                background-position: 0 -93px;
+            }
+            
+            .image9 {
+                width: 46px;
+                height: 46px;
+                background-position: -47px -93px;
+            }
+            
+            .image10 {
+                width: 46px;
+                height: 46px;
+                background-position: -96px -93px;
+            }
+            
+            .image15 {
+                width: 46px;
+                height: 46px;
+                background-position: -143px -94px;
+            }
+        </style>
+        <table id="postform" width="760" border="0" align="center">
+            <tr>
+                <td>
+                    <table width="640" border="4" align="center" cellpadding="4" cellspacing="0" bordercolor="#FFF9E1" bordercolorlight="#808000">
+                        <tr>
+                            <td width="18%">名字：</td>
+                            <td align="left"><input name="username" type="text" value="" size="20" maxlength="20"></td>
+                        </tr>
+                        <tr id="selecthead">
+                            <td bgcolor="#FFFFCC" valign=top>选择图案：<br></td>
+                            <td bgcolor="#FFE7F7">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td><input class="pccheck" type="radio" name="pic" value=1 checked alt="headpic:1">
+                                            <div class="image1" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=2>
+                                            <div class="image2" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=6>
+                                            <div class="image6" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=12>
+                                            <div class="image12" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=16>
+                                            <div class="image16" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=14>
+                                            <div class="image14" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class="pccheck" type="radio" name="pic" value=8>
+                                            <div class="image8" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=10>
+                                            <div class="image10" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=9>
+                                            <div class="image9" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=7>
+                                            <div class="image7" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=15>
+                                            <div class="image15" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                        <td><input class="pccheck" type="radio" name="pic" value=13>
+                                            <div class="image13" style="display: inline-block;" border="0"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="18%" valign="top">内容：</td>
+                            <td width="82%">
+                                <textarea name="body" rows="15" cols="60" onkeydown="ctlent()" onfocus="checklogin()"></textarea>
+
+                                <br>
+                                <font color="#FF0000" size="-1">（注意：一次最多可提交三万字左右，且一次最多可提交三张尺寸在1024*1024范围内的图片，超出部分请分次提交！）</font>
+                            </td>
+                        </tr>
+                        <tr id="authcode_name_r">
+                            <td width="18%" valign="top"><span id="authcode_name" style="display:none">验证码：</span></td>
+                            <td width="82%" align="left"></td>
+                        </tr>
+
+                        <tr id="show_pic" style="display:none;">
+                            <td valign="top">上传图片：<br><a href='#' target=_blank>(贴图规则)</a></td>
+                            <td><input name="picture" type="file" class=text size="50" onkeydown="return false" onpaste="return false" style="color:gray">
+                                <font size="-1"><br> (图片类型支持jpg、bmp、gif，大小限150K以内，图片宽度不大于1024)
+                                </font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <div align="center">
+                                    <input name="button1" type="submit" value="提交 [ Ctrl+Enter ]" onclick="makedonot()">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="center" valign="middle"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>
