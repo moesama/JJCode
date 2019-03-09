@@ -1,6 +1,6 @@
 module.exports = {
-  publicPath: './dist/',
-  indexPath: '../index.html',
+  outputDir: 'docs',
+  publicPath: '',
   pages: {
     index: {
       // page 的入口
@@ -8,5 +8,6 @@ module.exports = {
       // 模板来源
       template: 'public/index.html',
     },
-  }
+  },
+  productionSourceMap: false,
 };

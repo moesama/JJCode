@@ -85,7 +85,7 @@
 
 <script lang="ts">
     import JJ from './components/JJ.vue'
-    import Editor from './components/editor.vue'
+    import Editor from './components/Editor.vue'
     import $ from 'jquery-ts'
     import Split from 'split.js'
     import Rule from './data/Rule'
